@@ -21,3 +21,13 @@ Hệ thống bao gồm các dịch vụ:
 - `JwtUtil`: Sinh token với Claims `sub` (username), custom claim `role`, ký HMAC-SHA256.
 - API: `GET /api/auth/test-token?username={name}` tìm người dùng trong DB và cấp token.
 - Kiểm tra tính hợp lệ của Payload trên [jwt.io](https://jwt.io).
+
+---
+
+## [Bài tập 3] Triển khai Stateless Authentication Flow với Spring Security
+- Cấu hình `SessionCreationPolicy.STATELESS` (vô hiệu hóa HttpSession và cookie JSESSIONID).
+- Đăng ký `BCryptPasswordEncoder` bean để Spring Security so khớp mật khẩu qua `passwordEncoder.matches()`.
+- API: `POST /api/auth/login` tiếp nhận `LoginRequest` (username, password):
+  - Thành công: Trả về HTTP 200 kèm JWT access token.
+  - Thất bại: Trả về HTTP 401 Unauthorized kèm thông điệp chung `Bad credentials` để bảo mật.
+- Kiểm thử toàn diện qua JUnit 5 Mockito cho các kịch bản thành công và thất bại.
